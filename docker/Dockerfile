@@ -8,7 +8,7 @@ ARG AMBERTOOLS_DL=null
 ARG AMBERTOOLS_VER=26
 
 # Install workshop deps
-RUN mamba install -c conda-forge bioconda::blast openmm numpy=2.2 matplotlib scipy -y
+RUN mamba install -c conda-forge bioconda::blast openmm numpy=2.2 matplotlib scipy numba gemmi Bio rich freesasa sklearn -y
 RUN pip install git+https://github.com/CharlieLaughton/Alphafix.git
 WORKDIR /tmp
 
