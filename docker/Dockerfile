@@ -5,7 +5,7 @@ FROM ghcr.io/ccpbiosim/jupyterhub-base:$BASE_IMAGE
 LABEL maintainer="James Gebbie-Rayet <james.gebbie@stfc.ac.uk>"
 
 ARG AMBERTOOLS_DL=null
-ARG AMBERTOOLS_VER=25
+ARG AMBERTOOLS_VER=26
 
 # Install workshop deps
 RUN mamba install -c conda-forge bioconda::blast openmm numpy=2.2 matplotlib scipy -y
