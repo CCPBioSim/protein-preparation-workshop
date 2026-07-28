@@ -1,13 +1,34 @@
-# Amber-md-prep
-Jupyter notebook based tutorial on protein-ligand preparation for AMBER simulation prepared for CompBioAsia 2026
+# CCPBioSim Protein Preparation Workshop
 
-## Instructions
+This workshop walks through the process of preparing a simple protein + ligand system for molecular dynamics simulation:
 
-Clone this repo then:
+1. Using tools like *Alphafold3* and *Boltz2* to generate models for the protein/ligand complex.
+2. Adding hydrogen atoms to the models - fixing the ionization states of titratable groups.
+3. Creating a solvent environment - adding ions and water boxes.
+4. Conversion into file formats ready for MD simulation packages.
 
-* if you are NOT using the CBA Jupyterhub, execute `run_notebook.sh` to install required dependencies and launch the notebook.
-* if you ARE using the CBA Jupyterhub than all requirements have already been installed for you, just open `protein_ligand_prep.ipynb`
+## How to Use
 
-## Author
+This training course is deployed on the [CCPBioSim](www.ccpbiosim.ac.uk) website via our cloud infrastructure, however you can deploy on your own machine with docker.
 
-Charlie Laughton charles.laughton@nottingham.ac.uk
+Pull the container from our repository::
+
+    docker pull ghcr.io/ccpbiosim/protein-preparation-workshop:latest
+
+In our containers we are using the JupyterHub default port 8888, so you should
+forward this port when deploying locally::
+
+    docker run -p 8888:8888 ghcr.io/ccpbiosim/protein-preparation-workshop:latest
+
+## Authors
+
+Workshop Content Authors:
+
+- Charlie Laughton
+- Hima Bindu Koli
+- Jas Kalayan
+
+## Contact
+
+Please direct all questions and feedback to [Charlie Laughton](mailto:charles.laughton@nottingham.ac.uk)
+
