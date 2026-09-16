@@ -11,7 +11,13 @@ USER $NB_USER
 WORKDIR $HOME
 
 # Install workshop deps 
-RUN mamba install -c conda-forge bioconda::blast openmm numpy=2.2 matplotlib scipy ambertools=$AMBERTOOLS_VER
+RUN conda install -y -c conda-forge -c bioconda \
+    conda-forge::matplotlib=3.11.1 \
+    conda-forge::numpy=2.5.3 \
+    conda-forge::openmm=8.6.1 \
+    conda-forge::scipy=1.18.1 \
+    conda-forge::ambertools=$AMBERTOOLS_VER \
+    bioconda::blast=2.17.0
 RUN pip install git+https://github.com/CharlieLaughton/Alphafix.git
 
 RUN mkdir blastp
