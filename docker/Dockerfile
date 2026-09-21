@@ -12,7 +12,7 @@ WORKDIR $HOME
 
 # Install workshop deps 
 RUN conda install -y -c conda-forge -c bioconda \
-    conda-forge::matplotlib=3.11.1 \
+    conda-forge::matplotlib=3.11.2 \
     conda-forge::numpy=2.5.3 \
     conda-forge::openmm=8.6.1 \
     conda-forge::scipy=1.18.1 \
