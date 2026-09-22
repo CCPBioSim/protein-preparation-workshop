@@ -4,8 +4,6 @@ FROM ghcr.io/ccpbiosim/jupyterhub-base:$BASE_IMAGE
 
 LABEL maintainer="James Gebbie-Rayet <james.gebbie@stfc.ac.uk>"
 
-ARG AMBERTOOLS_VER=26.0
-
 # Switch to jovyan user.
 USER $NB_USER
 WORKDIR $HOME
@@ -16,7 +14,7 @@ RUN conda install -y -c conda-forge -c bioconda \
     conda-forge::numpy=2.5.3 \
     conda-forge::openmm=8.6.1 \
     conda-forge::scipy=1.18.1 \
-    conda-forge::ambertools=$AMBERTOOLS_VER \
+    conda-forge::ambertools=26.3 \
     bioconda::blast=2.17.0
 RUN pip install git+https://github.com/CharlieLaughton/Alphafix.git
 
