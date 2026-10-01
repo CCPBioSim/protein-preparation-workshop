@@ -15,7 +15,7 @@ RUN conda install -y -c conda-forge -c bioconda \
     conda-forge::mdtraj=1.11.1 \
     conda-forge::numpy=2.5.3 \
     conda-forge::nglview=4.0.1 \
-    conda-forge::rdkit=2026.03.1 \
+    conda-forge::rdkit=2026.03.6 \
     conda-forge::ambertools=26.0 \
     bioconda::reduce=4.15
 RUN pip install --no-cache-dir \
