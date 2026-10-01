@@ -59,13 +59,14 @@ jobs:
           tags: ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}
           outputs: type=docker,push-by-digest=true,name-canonical=true,push=true
 
-#      - name: Run tests
-#        if: github.event_name == 'pull_request'
-#        shell: bash
-#        run: |
-#          docker run -t ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}:latest bash -c " \
-#            pip install pytest nbmake; \
-#            find . -name '*.ipynb' | pytest --nbmake --nbmake-timeout=3600; "
+      - name: Run tests
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          docker run -t ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}:latest bash -c " \
+            pip install pytest nbmake; \
+            python mboltz predict abl_ligand.yaml; \
+            find . -name '*.ipynb' | pytest --nbmake --nbmake-timeout=3600; "
 
       - name: Authenticate with GHCR
         if: github.event_name != 'pull_request'
@@ -89,13 +90,14 @@ jobs:
           tags: ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}
           outputs: type=image,push-by-digest=true,name-canonical=true,push=true
 
-#      - name: Run tests
-#        if: github.event_name != 'pull_request'
-#        shell: bash
-#        run: |
-#          docker run -t ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}@${{ steps.build.outputs.digest }} bash -c " \
-#            pip install pytest nbmake; \
-#            find . -name '*.ipynb' | pytest --nbmake --nbmake-timeout=3600; "
+      - name: Run tests
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          docker run -t ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}:latest bash -c " \
+            pip install pytest nbmake; \
+            python mboltz predict abl_ligand.yaml; \
+            find . -name '*.ipynb' | pytest --nbmake --nbmake-timeout=3600; "
 
       - name: Export digest
         if: github.event_name != 'pull_request'
@@ -172,10 +174,10 @@ jobs:
         run: |
           docker buildx imagetools inspect ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}:latest
 
-#      - name: Post version update to dash
-#        uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # v4.0.1
-#        with:
-#          token: ${{ secrets.BUILD_TOKEN }}
-#          repository: ccpbiosim/ccpbiosim.github.io
-#          event-type: build    
-#          client-payload: '{"repo": "${{ github.event.repository.name }}", "tag": "${{ needs.build.outputs.tag }}"}'
+      - name: Post version update to dash
+        uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # v4.0.1
+        with:
+          token: ${{ secrets.BUILD_TOKEN }}
+          repository: ccpbiosim/ccpbiosim.github.io
+          event-type: build    
+          client-payload: '{"repo": "${{ github.event.repository.name }}", "tag": "${{ needs.build.outputs.tag }}"}'
