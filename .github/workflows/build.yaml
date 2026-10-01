@@ -174,10 +174,10 @@ jobs:
         run: |
           docker buildx imagetools inspect ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}:latest
 
-#      - name: Post version update to dash
-#        uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # v4.0.1
-#        with:
-#          token: ${{ secrets.BUILD_TOKEN }}
-#          repository: ccpbiosim/ccpbiosim.github.io
-#          event-type: build    
-#          client-payload: '{"repo": "${{ github.event.repository.name }}", "tag": "${{ needs.build.outputs.tag }}"}'
+      - name: Post version update to dash
+        uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # v4.0.1
+        with:
+          token: ${{ secrets.BUILD_TOKEN }}
+          repository: ccpbiosim/ccpbiosim.github.io
+          event-type: build    
+          client-payload: '{"repo": "${{ github.event.repository.name }}", "tag": "${{ needs.build.outputs.tag }}"}'
