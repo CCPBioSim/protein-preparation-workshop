@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+# Mock Boltz2 to demo functionality without needing a GPU, etc...
+# The mock version is desihgned to have the look and feel of the 
+# real thing, but actualy always returns the same output (taken from
+# a provided tar file of the output from a "real" run).
+import tarfile
+import click
+from pathlib import Path
+import os
+from tqdm import tqdm
+import time
+import yaml
+
+
+class namechanger():
+    def __init__(self, new_name):
+        self.new_name = new_name
+
+    def filter(self, member, path):
+        ''' fix file names during extraction
+        '''
+        new_name = member.name.replace('abl_ligandH', self.new_name)
+        member.name = new_name
+        return member
+
+
+@click.group()
+def cli() -> None:
+    """Boltz."""
+    return
+
+
+@cli.command()
+@click.argument("data", type=click.Path(exists=True))
+def predict(data):
+    click.echo('Checking input data.')
+    n_inputs = 1
+    click.echo(f'Processing {n_inputs} inputs with 1 threads.')
+    for i in tqdm(range(n_inputs)):
+        with open(data, 'r') as f:
+            yaml_data = yaml.load(f, Loader=yaml.FullLoader)
+            print(yaml_data)
+        time.sleep(1.5)
+    click.echo('Using bfloat16 Automatic Mixed Precision (AMP)')
+    click.echo('GPU available: True (cuda), used: True')
+    click.echo('TPU available: False, using: 0 TPU cores')
+    click.echo('HPU available: False, using: 0 HPUs')
+    for i in tqdm(range(n_inputs), 'Predicting Dataloader 0:'):
+        time.sleep(10)
+
+
+    
+    nc = namechanger(Path(data).stem)
+    tf = tarfile.open('resources/fboltz2.tgz')
+    tf.extractall(filter=nc.filter)
+    tf.close()
+
+if __name__ == "__main__":
+    cli()

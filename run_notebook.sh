@@ -55,7 +55,7 @@ cd "$(dirname "$0")"
 # Choose a name for the new environment
 # Note that deleting this will not clean up the micromamba cache, which may be
 # substantial.
-ENVNAME='ccpbiosim-protprep'
+ENVNAME='cba_md_26'
 
 # The filename of the Conda environment file to run the notebook in
 ENV_FILE='environment.yaml'
@@ -63,11 +63,8 @@ ENV_FILE='environment.yaml'
 # The filename of the Jupyter notebook we want to run
 NOTEBOOK="*.ipynb"
 
-ARCH=$(uname -m)
-
-# The next section only applies if you have a dependency on Ambertools
-## For now, we always want x64, because Ambertools doesn't support other ISAs
-## In the future, we can configure this when we select the OS
+# For now, we always want x64, because Ambertools doesn't support other ISAs
+# In the future, we can configure this when we select the OS
 ARCH="64"
 
 ################################################################################
@@ -87,8 +84,8 @@ fi
 
 # Download the appropriate Micromamba binary if it's missing
 if [[ ! -f ./micromamba ]]; then
-    echo "Downloading micromamba for $PLATFORM-$ARCH"
-    curl -L https://micro.mamba.pm/api/micromamba/$PLATFORM-$ARCH/latest \
+    echo "Downloading micromamba"
+    curl -L# https://micro.mamba.pm/api/micromamba/$PLATFORM-$ARCH/latest \
         | tar -xvj --strip-components=1 bin/micromamba
 fi
 # Create an alias for micromamba (rather than put this directory in PATH):
@@ -113,15 +110,10 @@ unset PYTHONHOME
 
 # Activate the new environment
 micromamba activate "$ENVNAME"
-# Install pypi-only packages:
-# pip install whatever_you_need
+# Install pip-only packages:
+pip install crossflow
 pip install git+https://github.com/CharlieLaughton/Alphafix.git
-# any other bootstrapping?
-mkdir -p blastp
-export BLASTDB=$PWD/blastp
-pwd=$PWD
-cd $BLASTDB
-update_blastdb.pl --decompress swissprot
-cd $pwd
-#t Open the notebook in the new environment
+pip install git+https://github.com/CompBioAsia/CBAtools.git
+# Open the notebook in the new environment
+jupyter lab workspaces import ${ENVNAME}.jupyterlab-workspace
 jupyter lab $NOTEBOOK

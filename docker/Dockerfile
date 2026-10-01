@@ -10,27 +10,26 @@ WORKDIR $HOME
 
 # Install workshop deps 
 RUN conda install -y -c conda-forge -c bioconda \
-    conda-forge::matplotlib=3.11.2 \
+    conda-forge::ipywidgets=8.1.9 \
+    conda-forge::click=8.5.0 \
+    conda-forge::mdtraj=1.11.1 \
     conda-forge::numpy=2.5.3 \
-    conda-forge::openmm=8.6.1 \
-    conda-forge::scipy=1.18.1 \
+    conda-forge::nglview=4.0.1 \
+    conda-forge::rdkit=2026.03.1 \
     conda-forge::ambertools=26.0 \
-    bioconda::blast=2.17.0
-RUN pip install git+https://github.com/CharlieLaughton/Alphafix.git
+    bioconda::reduce=4.15
+RUN pip install --no-cache-dir \
+    pdb2pqr==3.7.1
 
-RUN mkdir blastp
-WORKDIR /home/jovyan/blastp
-RUN update_blastdb.pl --decompress swissprot
-WORKDIR /home/jovyan
-
-ENV BLASTP=/home/jovyan/blastp
+COPY docker/fix-nglview.sh /tmp/fix-nglview.sh
+RUN bash /tmp/fix-nglview.sh
 
 # Get workshop files and move them to jovyan directory.
 COPY --chown=1000:100 . .
-RUN rm -rf INSTALL.txt LICENSE README.md docker .git .github
+RUN rm -rf INSTALL.txt LICENSE README.md docker .git .github environment.yaml run_notebook.sh
 
 # Copy updated lab workspace
-COPY --chown=1000:100 docker/default-37a8.jupyterlab-workspace /home/jovyan/.jupyter/lab/workspaces/default-37a8.jupyterlab-workspace
+#COPY --chown=1000:100 docker/default-37a8.jupyterlab-workspace /home/jovyan/.jupyter/lab/workspaces/default-37a8.jupyterlab-workspace
 
 # Always finish with non-root user as a precaution.
 USER $NB_USER

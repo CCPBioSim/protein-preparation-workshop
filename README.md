@@ -5,9 +5,12 @@
 [![issues](https://img.shields.io/github/issues/ccpbiosim/protein-preparation-workshop?logo=github&labelColor=grey)](https://github.com/CCPBioSim/protein-preparation-workshop/issues)
 [![pr](https://img.shields.io/github/issues-pr/ccpbiosim/protein-preparation-workshop?logo=github&labelColor=grey)](https://github.com/CCPBioSim/protein-preparation-workshop/pulls)
 
-This workshop source repository contains the build recipe for a docker container derived from the CCPBioSim JupyterHub image. This container adds the necessary software packages and notebook content to form a deployable course container.
+This workshop walks through the process of preparing a simple protein + ligand system for molecular dynamics simulation:
 
-This workshop walks through the process of preparing a simple protein system for molecular dynamics simulation using [Ambertools](https://ambermd.org/AmberTools.php). In addition, it showcases the use of [Alphafix](https://github.com/CharlieLaughton/Alphafix) to remediate crystal structure-derived models (identify and rebuild missing atoms and residues).
+1. Using tools like *Alphafold3* and *Boltz2* to generate models for the protein/ligand complex.
+2. Adding hydrogen atoms to the models - fixing the ionization states of titratable groups.
+3. Creating a solvent environment - adding ions and water boxes.
+4. Conversion into file formats ready for MD simulation packages.
 
 ## How to Use
 
@@ -27,7 +30,10 @@ forward this port when deploying locally::
 Workshop Content Authors:
 
 - Charlie Laughton
+- Hima Bindu Koli
+- Jas Kalayan
 
 ## Contact
 
 Please direct all questions and feedback to [Charlie Laughton](mailto:charles.laughton@nottingham.ac.uk)
+
