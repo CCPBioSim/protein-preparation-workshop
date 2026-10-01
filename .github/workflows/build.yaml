@@ -65,7 +65,7 @@ jobs:
         run: |
           docker run -t ghcr.io/${{ vars.ORG_REPO }}/${{ github.event.repository.name }}:latest bash -c " \
             pip install pytest nbmake; \
-            python mboltz predict abl_ligand.yaml \
+            python mboltz predict abl_ligand.yaml; \
             find . -name '*.ipynb' | pytest --nbmake --nbmake-timeout=3600; "
 
       - name: Authenticate with GHCR
