@@ -1,0 +1,5 @@
+name: Preparing Proteins for Simulation
+category: setup
+authors: ""
+shortdesc: This course walks through the process of preparing a simple protein system for molecular dynamics simulation using Ambertools.
+longdesc: ""
