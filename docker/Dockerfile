@@ -19,7 +19,7 @@ RUN conda install -y -c conda-forge -c bioconda \
     conda-forge::ambertools=26.0 \
     bioconda::reduce=4.15
 RUN pip install --no-cache-dir \
-    pdb2pqr==3.7.1
+    pdb2pqr==3.8.0
 
 COPY docker/fix-nglview.sh /tmp/fix-nglview.sh
 RUN bash /tmp/fix-nglview.sh
