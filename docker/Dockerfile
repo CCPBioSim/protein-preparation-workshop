@@ -11,7 +11,7 @@ WORKDIR $HOME
 # Install workshop deps 
 RUN conda install -y -c conda-forge -c bioconda \
     conda-forge::ipywidgets=8.1.9 \
-    conda-forge::click=8.5.0 \
+    conda-forge::click=8.5.1 \
     conda-forge::mdtraj=1.11.2 \
     conda-forge::numpy=2.5.4 \
     conda-forge::nglview=4.0.1 \
